@@ -7,6 +7,9 @@ import com.zou.config.SystemConfig;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+/**
+ * 消息接收初始化组件
+ */
 public class ReceiveInitializeComponent {
 
     private MessageRequest request;
