@@ -5,6 +5,7 @@ import com.zou.serializable.message.MessageDecoder;
 
 public class ProtostuffDecoder   extends MessageDecoder{
 
+
     public ProtostuffDecoder(MessageCodeHelper helper) {
         super(helper);
     }
