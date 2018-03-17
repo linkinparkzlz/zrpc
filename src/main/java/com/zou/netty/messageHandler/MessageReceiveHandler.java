@@ -3,7 +3,7 @@ package com.zou.netty.messageHandler;
 import com.zou.bean.MessageRequest;
 import com.zou.bean.MessageResponse;
 import com.zou.netty.executor.MessageReceiveExecutor;
-import com.zou.netty.initializer.ReceiveInitializeFacade;
+import com.zou.netty.initializer.ReceiveInitializeComponent;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -24,7 +24,7 @@ public class MessageReceiveHandler extends ChannelInboundHandlerAdapter {
         MessageRequest request = (MessageRequest) msg;
         MessageResponse response = new MessageResponse();
 
-        ReceiveInitializeFacade facade = new ReceiveInitializeFacade(request, response, map);
+        ReceiveInitializeComponent facade = new ReceiveInitializeComponent(request, response, map);
 
         Callable<Boolean> receveiveTask = facade.getTask();
 
