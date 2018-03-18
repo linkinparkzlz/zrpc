@@ -22,9 +22,19 @@ public class MessageResponse implements Serializable {
 
     private Object result;
 
+    private boolean returnNotNull;
+
 
     //生成get和set方法
 
+
+    public boolean isReturnNotNull() {
+        return returnNotNull;
+    }
+
+    public void setReturnNotNull(boolean returnNotNull) {
+        this.returnNotNull = returnNotNull;
+    }
 
     public String getMessageId() {
         return messageId;
