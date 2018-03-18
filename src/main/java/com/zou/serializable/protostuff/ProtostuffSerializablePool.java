@@ -4,6 +4,12 @@ import com.zou.config.SystemConfig;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
+/**
+ * @author zoulvzhou
+ *
+ * 使用池的方式，我们对对象的操作就可以模拟线程池一样
+ * 不用反复的创建，销毁对象等，从而提高程序的效率
+ */
 public class ProtostuffSerializablePool {
 
 
