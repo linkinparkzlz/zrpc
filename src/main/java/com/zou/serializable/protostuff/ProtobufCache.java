@@ -11,12 +11,16 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 
-public class SchemaCache {
+/**
+ * 缓存的作用
+ * 主要是为了提高序列化的性能
+ */
+public class ProtobufCache {
     private static class SchemaCacheHolder {
-        private static SchemaCache cache = new SchemaCache();
+        private static ProtobufCache cache = new ProtobufCache();
     }
 
-    public static SchemaCache getInstance() {
+    public static ProtobufCache getInstance() {
         return SchemaCacheHolder.cache;
     }
 
