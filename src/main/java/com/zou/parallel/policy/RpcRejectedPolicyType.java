@@ -7,10 +7,10 @@ public enum RpcRejectedPolicyType {
 
 
     ABORT_POLICY("AbortPolcy"),
-    BLOCKING_POLICY("BlockingPolicy"),
+    BLOCKING_POLICY("RpcBlockingPolicy"),
     CALLER_RUNS_POLICY("RpcCallerRunPolicy"),
     DISCARDED_POLICY("RpcDiscardedPolicy"),
-    REJECTED_POLICY("RejectedPolicy");
+    REJECTED_POLICY("RpcRejectedPolicy");
 
 
     private String value;
