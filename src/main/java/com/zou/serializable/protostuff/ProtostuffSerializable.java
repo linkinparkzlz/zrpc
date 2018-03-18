@@ -10,13 +10,16 @@ import com.zou.serializable.rpc.RpcSerializable;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ *
+ * 使用Protobuf提供导入序列化，并且使用了缓存的方式
+ */
 public class ProtostuffSerializable implements RpcSerializable {
 
-    private static SchemaCache schemaCache = SchemaCache.getInstance();
+    private static ProtobufCache protobufCache = ProtobufCache.getInstance();
     private static Objenesis objenesis = new ObjenesisStd(true);
     private boolean rpcDirect = false;
 
@@ -30,7 +33,7 @@ public class ProtostuffSerializable implements RpcSerializable {
     }
 
     private static <T> Schema<T> getSchema(Class<T> clazz) {
-        return (Schema<T>) schemaCache.get(clazz);
+        return (Schema<T>) protobufCache.get(clazz);
     }
 
 
