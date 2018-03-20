@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:nettyrpc="http://www.newlandframework.com/nettyrpc" xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.newlandframework.com/nettyrpc http://www.zou.com/zrpc/zrpc.xsd">
+    <context:property-placeholder location="classpath:rpc-server.properties"/>
+    <bean id="beanFactory" class="com.zou.spring.BeanFactoryHelper"/>
+
+    <nettyrpc:service id="demoAddService" interfaceName="com.zou.services.AddCalculate"
+                      ref="calcAddService"></nettyrpc:service>
+    <nettyrpc:service id="demoMultiService" interfaceName="com.zou.services.MultiCalculate"
+                      ref="calcMultiService"></nettyrpc:service>
+    <nettyrpc:service id="demoPersonManage" interfaceName="com.zou.services.PersonManage"
+                      ref="personManageService"></nettyrpc:service>
+    <nettyrpc:service id="demoCostTime" interfaceName="com.zou.services.CostTimeCalculate"
+                      ref="costTimeCalculateService"></nettyrpc:service>
+
+    <nettyrpc:service id="demoCache" interfaceName="com.zou.services.Cache"
+                      ref="cacheService" filter="simpleFilter"></nettyrpc:service>
+
+    <nettyrpc:service id="demoStore" interfaceName="com.zou.services.Store"
+                      ref="storeService" filter="simpleFilter"></nettyrpc:service>
+
+    <nettyrpc:registry id="rpcRegistry" ipAddress="${rpc.server.addr}" port="${rpc.server.echo.api.port}"
+                       protocol="PROTOBUF_SERIALIZABLE"></nettyrpc:registry>
+
+    <bean id="calcAddService" class="com.zou.services.impl.AddCalculateImpl"></bean>
+    <bean id="calcMultiService" class="com.zou.services.impl.MultiCalculateImpl"></bean>
+    <bean id="personManageService" class="com.zou.services.impl.PersonManageImpl"></bean>
+    <bean id="costTimeCalculateService" class="com.zou.services.impl.CostTimeCalculateImpl"></bean>
+    <bean id="cacheService" class="com.zou.services.impl.CacheImpl"></bean>
+    <bean id="storeService" class="com.zou.services.impl.StoreImpl"></bean>
+
+    <bean id="simpleFilter" class="com.zou.filter.support.SimpleFilter"></bean>
+
+    <!--NettyRPC Listeners And FilterChain Config by tangjie-->
+    <bean id="listeners" class="com.zou.listener.ModuleListennerChainWrapper">
+        <constructor-arg name="modular">
+            <bean class="com.zou.core.DefaultModular"></bean>
+        </constructor-arg>
+        <property name="listeners">
+            <list>
+                <ref bean="listenerAdapter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="modular" class="com.zou.filter.support.ModuleFilterChainWarpper">
+        <constructor-arg name="modular" ref="listeners"/>
+        <property name="filters">
+            <list>
+                <ref bean="classLoaderChainFilter"/>
+                <ref bean="echoChainFilter"/>
+            </list>
+        </property>
+    </bean>
+    <!--Listeners-->
+    <bean id="listenerAdapter" class="com.zou.listener.ModuleListenerAdapter"/>
+    <!--FilterChain-->
+    <bean id="classLoaderChainFilter" class="com.zou.filter.support.ClassLoaderChainFilter"/>
+    <bean id="echoChainFilter" class="com.zou.filter.support.EchoChainFilter"/>
+</beans>
