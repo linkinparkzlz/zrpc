@@ -35,7 +35,6 @@
 
     <bean id="simpleFilter" class="com.zou.filter.support.SimpleFilter"></bean>
 
-    <!--NettyRPC Listeners And FilterChain Config by tangjie-->
     <bean id="listeners" class="com.zou.listener.ModuleListennerChainWrapper">
         <constructor-arg name="modular">
             <bean class="com.zou.core.DefaultModular"></bean>
